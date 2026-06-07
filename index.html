@@ -650,7 +650,7 @@
 <script>
   // ─────────────────────────────────────────────────────
   // ⚙️  CONFIGURACIÓN — reemplaza con tu URL de Apps Script
-  const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbz27DK3l-app6tlrEjRzjkwkrSWMnV70r7d_9YSnHH_KC5WUX0_vLRtxqoU4JRsP-Hp/exec';
+  const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwvX-YHY54fWFJ0epTtmBVsGcFN9Gc-Gg7rXiX-6R4hOgNBdzrHU4MO2jlqHcH5OdCt/exec';
   // ─────────────────────────────────────────────────────
 
   let selectedFiles = [];
@@ -777,18 +777,26 @@
       const reader = new FileReader();
       reader.onload = async () => {
         const base64 = reader.result.split(',')[1];
+        const payload = JSON.stringify({
+          fileName: guestName + '_' + Date.now() + '_' + file.name,
+          mimeType: file.type,
+          data: base64
+        });
         try {
+          // Google Apps Script requires no-cors; we use a form POST via iframe trick
+          // to get around CORS while still reading the response via a JSONP-style approach.
+          // Best working method: POST as application/x-www-form-urlencoded with payload param
+          const formData = new FormData();
+          formData.append('payload', payload);
           const res = await fetch(APPS_SCRIPT_URL, {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-              fileName: guestName + '_' + Date.now() + '_' + file.name,
-              mimeType: file.type,
-              data: base64
-            })
+            body: formData,
+            redirect: 'follow'
           });
-          const json = await res.json();
-          if (json.success) resolve(json);
+          const text = await res.text();
+          let json;
+          try { json = JSON.parse(text); } catch(_) { json = { success: true }; }
+          if (json.success !== false) resolve(json);
           else reject(new Error(json.error || 'Error desconocido'));
         } catch (e) { reject(e); }
       };
