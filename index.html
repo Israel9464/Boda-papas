@@ -573,7 +573,7 @@
   </div>
 
   <!-- AVISO DE CONFIGURACIÓN — se puede ocultar cuando esté configurado -->
-  <div class="config-notice" id="configNotice">
+  <div class="config-notice" id="configNotice" style="display:none">
     <p>
       <strong>⚙️ Configuración pendiente:</strong> Para que las fotos lleguen a Google Drive,
       reemplaza <code>TU_WEB_APP_URL_AQUI</code> en este archivo con la URL de tu Google Apps Script.
@@ -718,7 +718,7 @@
   async function uploadPhotos() {
     if (!selectedFiles.length) return;
 
-    if (APPS_SCRIPT_URL === 'https://script.google.com/macros/s/AKfycbz27DK3l-app6tlrEjRzjkwkrSWMnV70r7d_9YSnHH_KC5WUX0_vLRtxqoU4JRsP-Hp/exec') {
+    if (APPS_SCRIPT_URL === 'TU_WEB_APP_URL_AQUI') {
       showError('Aún no está configurada la URL del servidor. Consulta el archivo INSTRUCCIONES.txt.');
       return;
     }
