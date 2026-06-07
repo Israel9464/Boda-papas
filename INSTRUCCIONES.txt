@@ -1,0 +1,86 @@
+================================================================
+   INSTRUCCIONES DE CONFIGURACIÓN — Álbum Bodas de Plata
+================================================================
+
+PASO 1 — Crear la carpeta en Google Drive
+──────────────────────────────────────────
+1. Abre Google Drive (drive.google.com) con la cuenta donde quieres
+   guardar las fotos.
+2. Crea una carpeta nueva, por ejemplo: "Fotos Bodas de Plata 💍"
+3. Ábrela y copia el ID de la URL:
+   https://drive.google.com/drive/folders/[ESTE_ES_EL_ID]
+4. Guarda ese ID, lo necesitarás en el Paso 2.
+
+
+PASO 2 — Crear el Apps Script (servidor gratuito de Google)
+──────────────────────────────────────────────────────────
+1. Ve a https://script.google.com
+2. Haz clic en "+ Nuevo proyecto"
+3. Borra todo el código que aparece por defecto.
+4. Pega el contenido completo del archivo "apps-script.js"
+5. En la línea que dice:
+      const FOLDER_ID = 'TU_ID_DE_CARPETA_AQUI';
+   Reemplaza TU_ID_DE_CARPETA_AQUI con el ID que copiaste en el Paso 1.
+6. Guarda el proyecto (Ctrl+S) — ponle el nombre que quieras,
+   por ejemplo "Album Bodas de Plata".
+
+
+PASO 3 — Publicar el Apps Script como Web App
+──────────────────────────────────────────────
+1. En el menú superior, haz clic en "Implementar" → "Nueva implementación"
+2. Haz clic en el engranaje ⚙️ junto a "Tipo" y selecciona "Aplicación web"
+3. Configura así:
+   - Descripción: Album Bodas de Plata
+   - Ejecutar como: Yo (tu cuenta)
+   - Quién tiene acceso: Cualquier usuario
+4. Haz clic en "Implementar"
+5. Google te pedirá que autorices los permisos — acepta todo.
+6. Copia la URL que aparece, se ve así:
+   https://script.google.com/macros/s/AKfycby.../exec
+
+
+PASO 4 — Conectar la página web
+────────────────────────────────
+1. Abre el archivo "index.html" con un editor de texto
+   (Notepad, TextEdit, VS Code, etc.)
+2. Busca esta línea:
+      const APPS_SCRIPT_URL = 'TU_WEB_APP_URL_AQUI';
+3. Reemplaza TU_WEB_APP_URL_AQUI con la URL que copiaste en el Paso 3.
+4. Guarda el archivo.
+5. También puedes borrar o comentar el bloque <div class="config-notice">
+   en el HTML para que no aparezca el aviso de configuración.
+
+
+PASO 5 — Publicar la página web (opciones)
+───────────────────────────────────────────
+OPCIÓN A — GitHub Pages (GRATUITO, recomendado):
+  1. Crea una cuenta en github.com
+  2. Crea un repositorio nuevo (público)
+  3. Sube el archivo index.html
+  4. Ve a Settings → Pages → Branch: main → Save
+  5. Tu URL será: https://tu-usuario.github.io/nombre-repo/
+  6. Genera el QR con esa URL en https://qr.io o https://qrcode-monkey.com
+
+OPCIÓN B — Netlify (GRATUITO, muy fácil):
+  1. Ve a https://netlify.com y regístrate
+  2. Arrastra el archivo index.html a su panel
+  3. Listo, te da una URL al instante.
+
+OPCIÓN C — Google Sites:
+  1. Ve a https://sites.google.com
+  2. Inserta el HTML como "Código"
+  ⚠️ Nota: algunos iframes pueden bloquear la cámara en móviles.
+
+
+PERSONALIZACIÓN (opcional)
+───────────────────────────
+- Nombres de los festejados: busca "Un amor que no envejece" en index.html
+  y cambia el título y subtítulo.
+- Fecha: puedes agregar la fecha de boda en el badge superior.
+- Colores: las variables CSS están al inicio del <style>, puedes
+  cambiar --gold por otro color si prefieres otro tema.
+
+================================================================
+¿Problemas? Asegúrate de que en Apps Script hayas seleccionado
+"Cualquier usuario" en "Quién tiene acceso" — es el error más común.
+================================================================

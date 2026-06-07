@@ -1,0 +1,822 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>25 Años de Amor · Boda de Plata</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --gold: #C9A84C;
+    --gold-light: #E8D5A3;
+    --gold-dark: #8B6914;
+    --cream: #FAF8F3;
+    --dark: #1A1712;
+    --silver: #8A8D90;
+    --silver-light: #D4D6D8;
+    --text-muted: #6B6560;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--dark);
+    color: var(--cream);
+    font-family: 'Jost', sans-serif;
+    font-weight: 300;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* Texture overlay */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      radial-gradient(ellipse 80% 60% at 20% 10%, rgba(201,168,76,0.07) 0%, transparent 60%),
+      radial-gradient(ellipse 60% 80% at 80% 90%, rgba(201,168,76,0.05) 0%, transparent 60%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .container {
+    position: relative;
+    z-index: 1;
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+  }
+
+  /* ── HEADER ── */
+  header {
+    text-align: center;
+    padding: 4rem 1.5rem 3rem;
+    position: relative;
+  }
+
+  .ornament {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    color: var(--gold);
+    font-size: 0.7rem;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+  }
+
+  .ornament::before,
+  .ornament::after {
+    content: '';
+    width: 60px;
+    height: 0.5px;
+    background: linear-gradient(90deg, transparent, var(--gold));
+  }
+  .ornament::after { transform: scaleX(-1); }
+
+  .aniversario-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: rgba(201,168,76,0.1);
+    border: 0.5px solid var(--gold);
+    border-radius: 100px;
+    padding: 0.4rem 1.2rem;
+    font-size: 0.75rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--gold-light);
+    margin-bottom: 2rem;
+  }
+
+  h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 300;
+    font-size: clamp(2.8rem, 8vw, 4.5rem);
+    line-height: 1.1;
+    color: var(--cream);
+    margin-bottom: 0.5rem;
+  }
+
+  h1 em {
+    font-style: italic;
+    color: var(--gold-light);
+  }
+
+  .subtitle {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.15rem;
+    color: var(--text-muted);
+    font-style: italic;
+    font-weight: 300;
+    margin-top: 1rem;
+    letter-spacing: 0.05em;
+  }
+
+  /* ── DIVIDER ── */
+  .divider {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    margin: 2.5rem 0;
+    color: var(--gold);
+  }
+  .divider-line {
+    flex: 1;
+    height: 0.5px;
+    background: linear-gradient(90deg, transparent, rgba(201,168,76,0.4), transparent);
+  }
+  .divider-diamond {
+    width: 6px;
+    height: 6px;
+    border: 1px solid var(--gold);
+    transform: rotate(45deg);
+  }
+
+  /* ── INSTRUCTION CARD ── */
+  .instruction-card {
+    background: rgba(255,255,255,0.03);
+    border: 0.5px solid rgba(201,168,76,0.2);
+    border-radius: 16px;
+    padding: 1.5rem 2rem;
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+
+  .instruction-card p {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    line-height: 1.7;
+  }
+
+  .instruction-card strong {
+    color: var(--gold-light);
+    font-weight: 400;
+  }
+
+  /* ── UPLOAD ZONE ── */
+  .upload-section {
+    margin-bottom: 2rem;
+  }
+
+  .upload-zone {
+    border: 1.5px dashed rgba(201,168,76,0.3);
+    border-radius: 16px;
+    padding: 3rem 2rem;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background: rgba(255,255,255,0.02);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .upload-zone:hover, .upload-zone.dragover {
+    border-color: var(--gold);
+    background: rgba(201,168,76,0.05);
+  }
+
+  .upload-icon {
+    width: 56px;
+    height: 56px;
+    border: 1px solid rgba(201,168,76,0.3);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1.2rem;
+  }
+
+  .upload-icon svg {
+    width: 24px;
+    height: 24px;
+    stroke: var(--gold);
+    fill: none;
+    stroke-width: 1.5;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .upload-zone h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.4rem;
+    font-weight: 400;
+    color: var(--cream);
+    margin-bottom: 0.5rem;
+  }
+
+  .upload-zone p {
+    font-size: 0.82rem;
+    color: var(--text-muted);
+    margin-bottom: 1.5rem;
+    letter-spacing: 0.02em;
+  }
+
+  .btn-upload {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: var(--gold);
+    color: var(--dark);
+    border: none;
+    border-radius: 8px;
+    padding: 0.65rem 1.6rem;
+    font-family: 'Jost', sans-serif;
+    font-size: 0.82rem;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .btn-upload:hover {
+    background: var(--gold-light);
+    transform: translateY(-1px);
+  }
+
+  input[type="file"] { display: none; }
+
+  /* ── NAME INPUT ── */
+  .name-section {
+    margin-bottom: 1.5rem;
+  }
+
+  .field-label {
+    display: block;
+    font-size: 0.72rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 0.5rem;
+  }
+
+  .field-input {
+    width: 100%;
+    background: rgba(255,255,255,0.04);
+    border: 0.5px solid rgba(201,168,76,0.2);
+    border-radius: 10px;
+    padding: 0.75rem 1rem;
+    font-family: 'Jost', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 300;
+    color: var(--cream);
+    transition: border-color 0.2s;
+    outline: none;
+  }
+
+  .field-input::placeholder { color: var(--text-muted); }
+  .field-input:focus { border-color: rgba(201,168,76,0.5); }
+
+  /* ── PREVIEW GRID ── */
+  .preview-section { margin-bottom: 2rem; }
+
+  .preview-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+  }
+
+  .preview-title {
+    font-size: 0.72rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--gold);
+  }
+
+  .preview-count {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+  }
+
+  .preview-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+  }
+
+  .preview-item {
+    position: relative;
+    aspect-ratio: 1;
+    border-radius: 8px;
+    overflow: hidden;
+    background: rgba(255,255,255,0.05);
+  }
+
+  .preview-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .preview-item .remove-btn {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    width: 22px;
+    height: 22px;
+    background: rgba(26,23,18,0.8);
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--cream);
+    font-size: 12px;
+    line-height: 1;
+    transition: background 0.2s;
+  }
+  .preview-item .remove-btn:hover { background: rgba(180,50,50,0.8); }
+
+  .preview-item .status-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(26,23,18,0.7);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    font-size: 0.65rem;
+    color: var(--cream);
+    opacity: 0;
+    transition: opacity 0.2s;
+  }
+
+  .preview-item.uploading .status-overlay,
+  .preview-item.done .status-overlay { opacity: 1; }
+
+  .preview-item.done .status-overlay { background: rgba(26,23,18,0.5); }
+
+  .spinner {
+    width: 20px;
+    height: 20px;
+    border: 2px solid rgba(201,168,76,0.2);
+    border-top-color: var(--gold);
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+  }
+
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  .check-icon {
+    width: 24px;
+    height: 24px;
+    background: var(--gold);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--dark);
+    font-size: 13px;
+  }
+
+  /* ── SUBMIT BTN ── */
+  .btn-submit {
+    width: 100%;
+    background: transparent;
+    border: 1px solid var(--gold);
+    border-radius: 10px;
+    padding: 1rem;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.2rem;
+    font-weight: 400;
+    font-style: italic;
+    color: var(--gold-light);
+    cursor: pointer;
+    letter-spacing: 0.05em;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    margin-bottom: 2.5rem;
+  }
+
+  .btn-submit:hover:not(:disabled) {
+    background: rgba(201,168,76,0.08);
+    transform: translateY(-1px);
+  }
+
+  .btn-submit:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+  }
+
+  .btn-submit svg {
+    width: 18px;
+    height: 18px;
+    stroke: currentColor;
+    fill: none;
+    stroke-width: 1.5;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  /* ── SUCCESS STATE ── */
+  .success-card {
+    display: none;
+    text-align: center;
+    padding: 3rem 2rem;
+    background: rgba(201,168,76,0.06);
+    border: 0.5px solid rgba(201,168,76,0.3);
+    border-radius: 16px;
+    margin-bottom: 2rem;
+    animation: fadeIn 0.5s ease;
+  }
+
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+
+  .success-card.visible { display: block; }
+
+  .success-icon {
+    width: 56px;
+    height: 56px;
+    border: 1px solid var(--gold);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1.2rem;
+  }
+
+  .success-icon svg {
+    width: 24px;
+    height: 24px;
+    stroke: var(--gold);
+    fill: none;
+    stroke-width: 1.5;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .success-card h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.8rem;
+    font-weight: 300;
+    color: var(--cream);
+    margin-bottom: 0.5rem;
+  }
+
+  .success-card p {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+  }
+
+  /* ── ERROR MSG ── */
+  .error-msg {
+    background: rgba(180,50,50,0.1);
+    border: 0.5px solid rgba(180,50,50,0.4);
+    border-radius: 8px;
+    padding: 0.75rem 1rem;
+    font-size: 0.82rem;
+    color: #f09595;
+    margin-bottom: 1rem;
+    display: none;
+  }
+  .error-msg.visible { display: block; }
+
+  /* ── CONFIG NOTICE ── */
+  .config-notice {
+    background: rgba(201,168,76,0.08);
+    border: 0.5px solid rgba(201,168,76,0.25);
+    border-radius: 12px;
+    padding: 1.25rem 1.5rem;
+    margin-bottom: 2rem;
+  }
+  .config-notice p {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    line-height: 1.6;
+  }
+  .config-notice code {
+    background: rgba(201,168,76,0.15);
+    color: var(--gold-light);
+    padding: 1px 6px;
+    border-radius: 4px;
+    font-size: 0.78rem;
+    font-family: monospace;
+  }
+  .config-notice strong { color: var(--gold-light); font-weight: 400; }
+
+  /* ── FOOTER ── */
+  footer {
+    text-align: center;
+    padding: 2rem 1.5rem 3rem;
+    border-top: 0.5px solid rgba(201,168,76,0.1);
+  }
+
+  footer p {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1rem;
+    font-style: italic;
+    color: var(--text-muted);
+  }
+
+  /* ── PROGRESS BAR ── */
+  .progress-bar-wrap {
+    width: 100%;
+    height: 2px;
+    background: rgba(255,255,255,0.06);
+    border-radius: 2px;
+    margin-bottom: 1.5rem;
+    overflow: hidden;
+    display: none;
+  }
+  .progress-bar-wrap.visible { display: block; }
+  .progress-bar-fill {
+    height: 100%;
+    background: var(--gold);
+    border-radius: 2px;
+    transition: width 0.3s ease;
+    width: 0%;
+  }
+
+  @media (max-width: 480px) {
+    header { padding: 3rem 1rem 2rem; }
+    .instruction-card { padding: 1.2rem 1.2rem; }
+    .upload-zone { padding: 2rem 1rem; }
+    .preview-grid { grid-template-columns: repeat(3, 1fr); gap: 6px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="aniversario-badge">
+    <span>✦</span>
+    <span>Bodas de Plata · 25 Años</span>
+    <span>✦</span>
+  </div>
+  <h1>Un amor que<br><em>no envejece</em></h1>
+  <p class="subtitle">Comparte tus fotos con los festejados</p>
+</header>
+
+<main class="container">
+
+  <div class="divider">
+    <div class="divider-line"></div>
+    <div class="divider-diamond"></div>
+    <div class="divider-line"></div>
+  </div>
+
+  <div class="instruction-card">
+    <p>Gracias por ser parte de esta celebración tan especial.<br>
+    Sube tus fotos y quedarán <strong>guardadas directamente</strong> en el álbum de los festejados. 💛</p>
+  </div>
+
+  <!-- AVISO DE CONFIGURACIÓN — se puede ocultar cuando esté configurado -->
+  <div class="config-notice" id="configNotice">
+    <p>
+      <strong>⚙️ Configuración pendiente:</strong> Para que las fotos lleguen a Google Drive,
+      reemplaza <code>TU_WEB_APP_URL_AQUI</code> en este archivo con la URL de tu Google Apps Script.
+      Consulta las instrucciones en el archivo <code>INSTRUCCIONES.txt</code>.
+    </p>
+  </div>
+
+  <!-- NOMBRE DEL INVITADO -->
+  <div class="name-section">
+    <label class="field-label" for="guestName">Tu nombre (opcional)</label>
+    <input class="field-input" type="text" id="guestName" placeholder="¿Cómo te llaman?" autocomplete="name">
+  </div>
+
+  <!-- ZONA DE SUBIDA -->
+  <div class="upload-section">
+    <div class="upload-zone" id="uploadZone">
+      <div class="upload-icon">
+        <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+      </div>
+      <h3>Sube tus fotos</h3>
+      <p>Arrastra aquí o toca para seleccionar<br>JPG, PNG, HEIC · Hasta 10 fotos a la vez</p>
+      <button class="btn-upload" onclick="document.getElementById('fileInput').click()">
+        Seleccionar fotos
+      </button>
+      <input type="file" id="fileInput" accept="image/*" multiple>
+    </div>
+  </div>
+
+  <!-- PREVIEW -->
+  <div class="preview-section" id="previewSection" style="display:none">
+    <div class="preview-header">
+      <span class="preview-title">Tus fotos</span>
+      <span class="preview-count" id="previewCount">0 seleccionadas</span>
+    </div>
+    <div class="preview-grid" id="previewGrid"></div>
+  </div>
+
+  <!-- PROGRESS -->
+  <div class="progress-bar-wrap" id="progressWrap">
+    <div class="progress-bar-fill" id="progressFill"></div>
+  </div>
+
+  <!-- ERROR -->
+  <div class="error-msg" id="errorMsg"></div>
+
+  <!-- BOTÓN ENVIAR -->
+  <button class="btn-submit" id="submitBtn" disabled onclick="uploadPhotos()">
+    <svg viewBox="0 0 24 24"><path d="M22 2L11 13"/><path d="M22 2L15 22 11 13 2 9l20-7z"/></svg>
+    Enviar mis fotos al álbum
+  </button>
+
+  <!-- SUCCESS -->
+  <div class="success-card" id="successCard">
+    <div class="success-icon">
+      <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+    </div>
+    <h3>¡Gracias, <span id="thankName">invitado</span>!</h3>
+    <p>Tus fotos ya llegaron al álbum de los festejados. 🎉<br>
+    <span style="display:block; margin-top:0.5rem;">¿Tienes más? Puedes subir otra tanda.</span></p>
+    <button class="btn-upload" style="margin-top:1.5rem;" onclick="resetForm()">Subir más fotos</button>
+  </div>
+
+</main>
+
+<footer>
+  <div class="divider" style="margin-bottom:2rem">
+    <div class="divider-line"></div>
+    <div class="divider-diamond"></div>
+    <div class="divider-line"></div>
+  </div>
+  <p>Con amor, en este día tan especial 🤍</p>
+</footer>
+
+<script>
+  // ─────────────────────────────────────────────────────
+  // ⚙️  CONFIGURACIÓN — reemplaza con tu URL de Apps Script
+  const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbz27DK3l-app6tlrEjRzjkwkrSWMnV70r7d_9YSnHH_KC5WUX0_vLRtxqoU4JRsP-Hp/exec';
+  // ─────────────────────────────────────────────────────
+
+  let selectedFiles = [];
+
+  const fileInput = document.getElementById('fileInput');
+  const uploadZone = document.getElementById('uploadZone');
+  const previewSection = document.getElementById('previewSection');
+  const previewGrid = document.getElementById('previewGrid');
+  const previewCount = document.getElementById('previewCount');
+  const submitBtn = document.getElementById('submitBtn');
+  const errorMsg = document.getElementById('errorMsg');
+  const successCard = document.getElementById('successCard');
+  const progressWrap = document.getElementById('progressWrap');
+  const progressFill = document.getElementById('progressFill');
+
+  fileInput.addEventListener('change', e => addFiles(e.target.files));
+
+  uploadZone.addEventListener('dragover', e => { e.preventDefault(); uploadZone.classList.add('dragover'); });
+  uploadZone.addEventListener('dragleave', () => uploadZone.classList.remove('dragover'));
+  uploadZone.addEventListener('drop', e => {
+    e.preventDefault();
+    uploadZone.classList.remove('dragover');
+    addFiles(e.dataTransfer.files);
+  });
+
+  function addFiles(files) {
+    const imgs = Array.from(files).filter(f => f.type.startsWith('image/'));
+    if (!imgs.length) return;
+    selectedFiles = [...selectedFiles, ...imgs].slice(0, 20);
+    renderPreviews();
+  }
+
+  function renderPreviews() {
+    previewGrid.innerHTML = '';
+    selectedFiles.forEach((file, i) => {
+      const item = document.createElement('div');
+      item.className = 'preview-item';
+      item.id = 'preview-' + i;
+
+      const img = document.createElement('img');
+      img.src = URL.createObjectURL(file);
+
+      const removeBtn = document.createElement('button');
+      removeBtn.className = 'remove-btn';
+      removeBtn.innerHTML = '✕';
+      removeBtn.title = 'Quitar';
+      removeBtn.onclick = () => {
+        selectedFiles.splice(i, 1);
+        renderPreviews();
+      };
+
+      const overlay = document.createElement('div');
+      overlay.className = 'status-overlay';
+
+      item.append(img, removeBtn, overlay);
+      previewGrid.appendChild(item);
+    });
+
+    const n = selectedFiles.length;
+    previewSection.style.display = n ? 'block' : 'none';
+    previewCount.textContent = n + (n === 1 ? ' foto' : ' fotos');
+    submitBtn.disabled = n === 0;
+  }
+
+  async function uploadPhotos() {
+    if (!selectedFiles.length) return;
+
+    if (APPS_SCRIPT_URL === 'TU_WEB_APP_URL_AQUI') {
+      showError('Aún no está configurada la URL del servidor. Consulta el archivo INSTRUCCIONES.txt.');
+      return;
+    }
+
+    const name = document.getElementById('guestName').value.trim() || 'Invitado';
+    submitBtn.disabled = true;
+    hideError();
+    progressWrap.classList.add('visible');
+
+    let uploaded = 0;
+    const total = selectedFiles.length;
+
+    for (let i = 0; i < selectedFiles.length; i++) {
+      const item = document.getElementById('preview-' + i);
+      if (item) {
+        item.classList.add('uploading');
+        item.querySelector('.status-overlay').innerHTML = '<div class="spinner"></div><span>Subiendo…</span>';
+      }
+
+      try {
+        await uploadFile(selectedFiles[i], name);
+        uploaded++;
+        if (item) {
+          item.classList.remove('uploading');
+          item.classList.add('done');
+          item.querySelector('.status-overlay').innerHTML = '<div class="check-icon">✓</div>';
+          item.querySelector('.remove-btn').style.display = 'none';
+        }
+      } catch (err) {
+        if (item) {
+          item.classList.remove('uploading');
+          item.querySelector('.status-overlay').innerHTML = '<span style="color:#f09595">Error</span>';
+        }
+      }
+
+      progressFill.style.width = ((i + 1) / total * 100) + '%';
+    }
+
+    setTimeout(() => {
+      if (uploaded > 0) {
+        document.getElementById('thankName').textContent = name;
+        successCard.classList.add('visible');
+        submitBtn.style.display = 'none';
+        previewSection.style.display = 'none';
+        progressWrap.classList.remove('visible');
+        progressFill.style.width = '0%';
+      } else {
+        showError('Hubo un problema subiendo las fotos. Intenta de nuevo.');
+        submitBtn.disabled = false;
+      }
+    }, 600);
+  }
+
+  function uploadFile(file, guestName) {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = async () => {
+        const base64 = reader.result.split(',')[1];
+        try {
+          const res = await fetch(APPS_SCRIPT_URL, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              fileName: guestName + '_' + Date.now() + '_' + file.name,
+              mimeType: file.type,
+              data: base64
+            })
+          });
+          const json = await res.json();
+          if (json.success) resolve(json);
+          else reject(new Error(json.error || 'Error desconocido'));
+        } catch (e) { reject(e); }
+      };
+      reader.onerror = reject;
+      reader.readAsDataURL(file);
+    });
+  }
+
+  function resetForm() {
+    selectedFiles = [];
+    fileInput.value = '';
+    previewGrid.innerHTML = '';
+    previewSection.style.display = 'none';
+    successCard.classList.remove('visible');
+    submitBtn.style.display = '';
+    submitBtn.disabled = true;
+    progressWrap.classList.remove('visible');
+    progressFill.style.width = '0%';
+    hideError();
+  }
+
+  function showError(msg) {
+    errorMsg.textContent = msg;
+    errorMsg.classList.add('visible');
+  }
+  function hideError() {
+    errorMsg.classList.remove('visible');
+  }
+</script>
+</body>
+</html>
