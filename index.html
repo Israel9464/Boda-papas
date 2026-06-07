@@ -650,7 +650,7 @@
 <script>
   // ─────────────────────────────────────────────────────
   // ⚙️  CONFIGURACIÓN — reemplaza con tu URL de Apps Script
-  const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwvX-YHY54fWFJ0epTtmBVsGcFN9Gc-Gg7rXiX-6R4hOgNBdzrHU4MO2jlqHcH5OdCt/exec';
+  const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbw4Q6M8fQln90PX6Y5x2-iPH0E71fcrzJhlO6wJCOQW5k-1crFMpdCwVyPiAaj2TJvB/exec';
   // ─────────────────────────────────────────────────────
 
   let selectedFiles = [];
@@ -783,21 +783,17 @@
           data: base64
         });
         try {
-          // Google Apps Script requires no-cors; we use a form POST via iframe trick
-          // to get around CORS while still reading the response via a JSONP-style approach.
-          // Best working method: POST as application/x-www-form-urlencoded with payload param
-          const formData = new FormData();
-          formData.append('payload', payload);
-          const res = await fetch(APPS_SCRIPT_URL, {
+          // Google Apps Script bloquea CORS en peticiones con body JSON.
+          // Solución: mode:'no-cors' con text/plain — Apps Script lo recibe
+          // en e.postData.contents y responde (aunque no podemos leer la respuesta).
+          // Si fetch no lanza excepción, la petición llegó correctamente.
+          await fetch(APPS_SCRIPT_URL, {
             method: 'POST',
-            body: formData,
-            redirect: 'follow'
+            mode: 'no-cors',
+            headers: { 'Content-Type': 'text/plain' },
+            body: payload
           });
-          const text = await res.text();
-          let json;
-          try { json = JSON.parse(text); } catch(_) { json = { success: true }; }
-          if (json.success !== false) resolve(json);
-          else reject(new Error(json.error || 'Error desconocido'));
+          resolve({ success: true });
         } catch (e) { reject(e); }
       };
       reader.onerror = reject;
